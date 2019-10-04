@@ -10,6 +10,7 @@ namespace Assignment_2_GROUP_5
     {
         static void Main(string[] args)
         {
+
             int target = 5;
             int[] nums = { 1, 3, 5, 6 };
             Console.WriteLine("Position to insert {0} is = {1}\n", target, SearchInsert(nums, target));
