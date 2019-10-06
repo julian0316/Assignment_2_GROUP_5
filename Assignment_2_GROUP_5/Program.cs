@@ -31,7 +31,30 @@ namespace Assignment_2_GROUP_5
             string word = "cba";
             Console.WriteLine("Time taken to type with one finger = {0}\n", CalculateTime(keyboard, word));
             Console.WriteLine("\n");
-            Console.ReadLine();
+            //Console.ReadLine(); 
+
+            int[,] image = { { 1, 1, 0 }, { 1, 0, 1 }, { 0, 0, 0 } };
+            int[,] flipAndInvertedImage = FlipAndInvertImage(image);
+            Console.WriteLine("The resulting flipped and inverted image is:\n");
+            Display2DArray(flipAndInvertedImage);
+            Console.Write("\n");
+
+            int[] arr = { -4, -1, 0, 3, 10 };
+            int[] sortedSquares = SortedSquares(arr);
+            Console.WriteLine("Squares of the array in sorted order is:");
+            DisplayArray(sortedSquares);
+            Console.Write("\n");
+
+            string s = "abca";
+            if (ValidPalindrome(s))
+            {
+                Console.WriteLine("The given string \"{0}\" can be made PALINDROME", s);
+            }
+            else
+            {
+                Console.WriteLine("The given string \"{0}\" CANNOT be made PALINDROME", s);
+            }
+
         }
 
         public static int SearchInsert(int[] nums, int target)
@@ -151,6 +174,127 @@ namespace Assignment_2_GROUP_5
                 presentPosition = x;
             }
             return output;
+        }
+
+
+        public static int[,] FlipAndInvertImage(int[,] A)
+        {
+
+            int i = A.GetLength(0);
+            int j = A.GetLength(1);
+            int[,] invertedArray = new int[i, j];
+            int x = 0;
+            int y = 0;
+            int nrow = i - 1;
+            int ncol = i - 1;
+            int value;
+            int invertedValue;
+
+            try
+            {
+                //reverse each row
+
+                //rows
+                for (x = 0; x <= i - 1 ; x++)
+                {
+                    //columns
+                    for (y = 0; y <= j - 1; y++)
+                    {
+                        value = A[x, y];
+                        if (value == 1)
+                        {
+                            invertedValue = 0;
+                        }
+                        else
+                        {
+                            invertedValue = 1;
+                        }
+
+                        invertedArray.SetValue(invertedValue, x, ncol);
+                        ncol--;
+                    }
+                    ncol = i - 1;
+                }// end of reverse each row and invert image
+            }
+            catch
+            {
+                Console.WriteLine("Exception occured while computing FlipAndInvertImage()");
+            }
+
+            return invertedArray;
+        } // end of exercise 5 - FlipAndInvertImage
+
+        private static void Display2DArray(int[,] a)
+        {
+            for (int i = 0; i < a.GetLength(0); i++)
+            {
+                for (int j = 0; j < a.GetLength(1); j++)
+                {
+                    Console.Write(a[i, j] + "\t");
+                }
+                Console.Write("\n");
+            }
+        }
+        private static int[] SortedSquares(int[] arr)
+        {
+            int size = arr.GetLength(0);
+            int [] squares = new int [size];
+            int value;
+            int j = 0;
+            
+
+            try
+            {
+                Array.Sort(arr);
+                foreach (int i in arr)
+                {
+                    value = (int) Math.Pow(i, 2);
+                    squares.SetValue(value, j);
+                    j++;
+                }
+                Array.Sort(squares);
+            }
+            catch
+            {
+                Console.WriteLine("Exception occured while computing SortedSquares()");
+            }
+
+            return squares;
+        }
+        private static bool ValidPalindrome(string s)
+        {
+            int len = s.Length;
+            string alfa;
+            string beta;
+            int i;
+
+            try
+            {
+                if (len >= 1 && len <= 50000)
+                {
+                    for (i = 0; i <= len - 1; i++)
+                    {
+                        // o except deleta todas as letras a de uma vez. em vez disso fazer um concatenar de dois substrings
+                        alfa = s.Substring(0, i);
+                        beta = s.Substring(i + 1, len - 1 - i);
+                        var subset = alfa + beta;
+                        char[] rev = subset.ToCharArray();
+                        Array.Reverse(rev);
+                        string rev2 = new string(rev);
+
+                        if (subset == rev2)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Exception occured while computing ValidPalindrome()");
+            }
+
+            return false;
         }
     }
 }
