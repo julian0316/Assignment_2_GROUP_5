@@ -45,6 +45,11 @@ namespace Assignment_2_GROUP_5
             DisplayArray(sortedSquares);
             Console.Write("\n");
 
+            int[,] intervals = { { 0, 30 }, { 5, 10 }, { 15, 20 } };
+            int minMeetingRooms = MinMeetingRooms(intervals);
+            Console.WriteLine("Minimum meeting rooms needed = {0}\n", minMeetingRooms);
+            Console.Write("\n");
+
             string s = "abca";
             if (ValidPalindrome(s))
             {
@@ -55,12 +60,16 @@ namespace Assignment_2_GROUP_5
                 Console.WriteLine("The given string \"{0}\" CANNOT be made PALINDROME", s);
             }
 
+           
+            Console.ReadLine();
         }
-
+        //Added by Pradeep on 10/04/2019
+        //This method is used to insert a specific element
         public static int SearchInsert(int[] nums, int target)
         {
             try
-            {
+            { 
+                ////Declaration 
                 string[] the_array = nums.Select(i => i.ToString()).ToArray();
                 var index = -1;
                 var last = nums.Last();
@@ -90,7 +99,8 @@ namespace Assignment_2_GROUP_5
             }
             return 0;
         }
-
+        //added by pradeep 10/03/2019
+        //This method is to find the largest unique number
         public static int LargestUniqueNumber(int[] A)
         {
             //sort
@@ -134,6 +144,8 @@ namespace Assignment_2_GROUP_5
                 Console.WriteLine("Exception occured while computing DisplayArray()");
             }
         }
+        //Added by Julian on 10/07/2019
+        // This method is to find the intersect 
         public static int[] Intersect(int[] nums1, int[] nums2)
         {
             try
@@ -163,6 +175,8 @@ namespace Assignment_2_GROUP_5
             return new int[] { };
         }
 
+        //Added by Alysson on 10/07/2019
+        // This method is used to get the CalculateTime program
         public static int CalculateTime(string keyboard, string word)
         {
             int output = 0;
@@ -176,7 +190,8 @@ namespace Assignment_2_GROUP_5
             return output;
         }
 
-
+        //Added by Pradeep on 10/05/2019
+        // This method is used to calculate the flipandimage program
         public static int[,] FlipAndInvertImage(int[,] A)
         {
 
@@ -235,6 +250,9 @@ namespace Assignment_2_GROUP_5
                 Console.Write("\n");
             }
         }
+
+        //Added by Alysson on 10/06/2019
+        // This method calculates sorted Squares 
         private static int[] SortedSquares(int[] arr)
         {
             int size = arr.GetLength(0);
@@ -261,6 +279,9 @@ namespace Assignment_2_GROUP_5
 
             return squares;
         }
+
+        //Added by Julian on 10/06/2019
+        //This method calculates the Valid Palindrome question
         private static bool ValidPalindrome(string s)
         {
             int len = s.Length;
@@ -295,6 +316,53 @@ namespace Assignment_2_GROUP_5
             }
 
             return false;
+        }
+        //added by alysson on 10/06/2019
+        //This method calculates the minumun requered rooms 
+        public static int MinMeetingRooms(int[,] intervals)
+        {
+
+            List<int> startList = new List<int>();
+            List<int> endList = new List<int>();
+            int max = 0;
+            int temp = 0;
+            int sLoop = 0;
+            int eLoop = 0;
+            try
+            {
+                for (int i = 0; i < intervals.GetLength(0); i++)
+                {
+                    startList.Add(intervals[i, 0]);
+                    endList.Add(intervals[i, 1]);
+                }
+                startList.Sort();
+                endList.Sort();
+                while (sLoop < startList.Count && eLoop < startList.Count)
+                {
+
+
+                    if (startList[sLoop] <= endList[eLoop])
+                    {
+
+                        temp++;
+                        if (temp > max)
+                        {
+                            max = temp;
+                        }
+                        sLoop++;
+                    }
+                    else
+                    {
+                        temp--;
+                        eLoop++;
+                    }
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Exception occured while computing MinMeetingRooms()");
+            }
+            return max;
         }
     }
 }
